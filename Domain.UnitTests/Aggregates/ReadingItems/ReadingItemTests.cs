@@ -1,7 +1,7 @@
-using AwesomeAssertions;
 using Domain.Aggregates.ReadingItems;
 using Domain.Aggregates.ReadingItems.ValueObjects;
 using Domain.Common.Enums;
+using FluentAssertions;
 
 namespace Domain.UnitTests.Aggregates.ReadingItems;
 

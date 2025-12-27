@@ -1,5 +1,5 @@
-﻿using AwesomeAssertions;
-using Domain.Aggregates.Categories;
+﻿using Domain.Aggregates.Categories;
+using FluentAssertions;
 
 namespace Domain.UnitTests.Aggregates.Categories;
 

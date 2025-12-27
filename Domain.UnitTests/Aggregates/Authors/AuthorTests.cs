@@ -1,5 +1,5 @@
-using AwesomeAssertions;
 using Domain.Aggregates.Authors;
+using FluentAssertions;
 
 namespace Domain.UnitTests.Aggregates.Authors;
 

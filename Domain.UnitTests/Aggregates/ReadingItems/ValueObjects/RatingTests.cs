@@ -1,5 +1,5 @@
-using AwesomeAssertions;
 using Domain.Aggregates.ReadingItems.ValueObjects;
+using FluentAssertions;
 
 namespace Domain.UnitTests.Aggregates.ReadingItems.ValueObjects;
 

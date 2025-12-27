@@ -1,6 +1,6 @@
-using AwesomeAssertions;
 using Domain.Aggregates.Users;
 using Domain.Common.Enums;
+using FluentAssertions;
 
 namespace Domain.UnitTests.Aggregates.Users;
 
