@@ -13,6 +13,4 @@ public sealed record Rating
 
         return new Rating(value);
     }
-
-    public override string ToString() => Value.ToString("0.0");
 }
