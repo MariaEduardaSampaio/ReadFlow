@@ -1,6 +1,6 @@
 using Infrastructure;
 using Infrastructure.EntityFramework.Context;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.EntityFramework.Seeds;
 
 namespace WebApi;
 
@@ -16,7 +16,7 @@ public sealed class Startup(IConfiguration configuration)
         services.AddInfrastructure(configuration);
     }
 
-    public void Configure(WebApplication app)
+    public async Task Configure(WebApplication app)
     {
         if (app.Environment.IsDevelopment())
         {
@@ -25,7 +25,8 @@ public sealed class Startup(IConfiguration configuration)
 
             using var scope = app.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<ReadFlowDbContext>();
-            db.Database.Migrate();
+            
+            await DatabaseSeeder.SeedAsync(db);
         }
 
         app.UseHttpsRedirection();
