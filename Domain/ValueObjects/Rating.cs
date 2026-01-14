@@ -8,6 +8,8 @@ public class Rating: ValueObject
     public const int MaxValue = 10;
     public int Value { get; }
     
+    protected Rating() { }
+    
     public Rating(int? value)
     {
         if (value < 0 || value > MaxValue)

@@ -38,11 +38,11 @@ public class UserConfiguration: IEntityTypeConfiguration<User>
                 .HasColumnType($"varchar({Email.MaxLength})")
                 .HasMaxLength(Email.MaxLength)
                 .IsRequired();
+
+            e.HasIndex(u => u.Address)
+                .IsUnique();
         });
         
-        builder.HasIndex("email_address")
-            .IsUnique();
-
         builder.HasMany(u => u.ReadingItems)
             .WithOne(ri => ri.User)
             .HasForeignKey(ri => ri.UserId)

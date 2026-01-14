@@ -9,12 +9,12 @@ public class Title: ValueObject
     
     public string? Text { get; }
     
-    public Title(string? title)
+    public Title(string? text)
     {
-        if (title?.Length > MaxLength)
+        if (text?.Length > MaxLength)
             throw new RuleViolationDomainException($"The provided title must be smaller or equal to {MaxLength}.");
         
-        Text = title;
+        Text = text;
     }
     
     protected override IEnumerable<object> GetEqualityComponents()

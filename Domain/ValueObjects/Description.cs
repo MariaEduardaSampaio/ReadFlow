@@ -9,12 +9,12 @@ public class Description: ValueObject
     
     public string? Text { get; }
     
-    public Description(string? description)
+    public Description(string? text)
     {
-        if (description?.Length > MaxLength)
+        if (text?.Length > MaxLength)
             throw new RuleViolationDomainException($"The provided description must be smaller or equal to {MaxLength}.");
         
-        Text = description;
+        Text = text;
     }
     
     protected override IEnumerable<object> GetEqualityComponents()

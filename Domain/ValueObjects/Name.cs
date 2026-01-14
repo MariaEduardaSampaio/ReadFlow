@@ -10,15 +10,15 @@ public class Name: ValueObject
     
     public string? Text { get; }
     
-    public Name(string name)
+    public Name(string text)
     {
-        if (name.IsEmpty)
+        if (text.IsEmpty)
             throw new RuleViolationDomainException("The provided name must not be null or empty.");
         
-        if (name.Length > MaxLength)
+        if (text.Length > MaxLength)
             throw new RuleViolationDomainException($"The provided name must be smaller or equal to {MaxLength}.");
         
-        Text = name;
+        Text = text;
     }
     
     protected override IEnumerable<object> GetEqualityComponents()

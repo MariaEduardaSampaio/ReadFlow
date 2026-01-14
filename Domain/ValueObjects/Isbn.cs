@@ -12,12 +12,12 @@ public sealed class Isbn : ValueObject
 
     public string Value { get; }
 
-    public Isbn(string? raw)
+    public Isbn(string? value)
     {
-        if (raw.IsEmpty)
+        if (value.IsEmpty)
             throw new RuleViolationDomainException("ISBN cannot be empty.");
 
-        var normalized = Normalize(raw);
+        var normalized = Normalize(value);
 
         if (normalized.Length == 10)
         {

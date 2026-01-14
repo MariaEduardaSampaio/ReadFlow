@@ -20,10 +20,10 @@ public class CategoryConfiguration: IEntityTypeConfiguration<Category>
                 .HasColumnType($"varchar({CategoryName.MaxLength})")
                 .HasMaxLength(CategoryName.MaxLength)
                 .IsRequired();
+            
+            e.HasIndex(x => x.Text)
+                .IsUnique();
         });
-        
-        builder.HasIndex("category_name")
-            .IsUnique();
         
         builder.HasMany(c => c.Books)
             .WithMany(b => b.Categories)

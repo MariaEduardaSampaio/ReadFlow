@@ -10,15 +10,15 @@ public class CategoryName: ValueObject
     
     public string? Text { get; }
     
-    public CategoryName(string? name)
+    public CategoryName(string? text)
     {
-        if (name.IsEmpty)
+        if (text.IsEmpty)
             throw new RuleViolationDomainException("The provided category name must not be null or empty.");
 
-        if (name?.Length > MaxLength)
+        if (text?.Length > MaxLength)
             throw new RuleViolationDomainException($"The provided category name must be smaller or equal to {MaxLength}.");
         
-        Text = name;
+        Text = text;
     }
     
     protected override IEnumerable<object> GetEqualityComponents()
