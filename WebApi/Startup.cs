@@ -1,6 +1,8 @@
+using Application;
 using Infrastructure;
 using Infrastructure.EntityFramework.Context;
 using Infrastructure.EntityFramework.Seeds;
+using WebApi.Common.ErrorHandling;
 
 namespace WebApi;
 
@@ -12,8 +14,11 @@ public sealed class Startup(IConfiguration configuration)
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        
+        services.AddSingleton<IExceptionToProblemDetailsMapper, ExceptionToProblemDetailsMapper>();
 
-        services.AddInfrastructure(configuration);
+        services.AddInfrastructureConfigurations(configuration);
+        services.RegisterApplicationUseCases();
     }
 
     public async Task Configure(WebApplication app)
@@ -31,6 +36,9 @@ public sealed class Startup(IConfiguration configuration)
 
         app.UseHttpsRedirection();
         app.UseAuthorization();
+
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
+        
         app.MapControllers();
     }
 }

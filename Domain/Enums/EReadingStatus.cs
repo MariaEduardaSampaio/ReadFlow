@@ -1,4 +1,4 @@
-namespace Domain.Common.Enums;
+namespace Domain.Enums;
 
 public enum EReadingStatus
 {

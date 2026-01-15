@@ -1,4 +1,4 @@
-namespace Domain.Common.Interfaces;
+namespace Application.Abstractions.Persistence;
 
 public interface IUnitOfWork
 {

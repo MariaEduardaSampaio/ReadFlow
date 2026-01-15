@@ -1,5 +1,5 @@
-using Domain.Common.Enums;
 using Domain.Entities;
+using Domain.Enums;
 using FluentAssertions;
 
 namespace Domain.UnitTests.Entities;

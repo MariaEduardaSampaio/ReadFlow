@@ -1,5 +1,5 @@
 using System.Reflection;
-using Domain.Common.Interfaces;
+using Application.Abstractions.Persistence;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +20,6 @@ public class ReadFlowDbContext(DbContextOptions<ReadFlowDbContext> options) : Db
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         base.OnModelCreating(modelBuilder);

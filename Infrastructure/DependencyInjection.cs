@@ -1,6 +1,7 @@
-using Domain.Common.Interfaces;
+using Application.Abstractions.Persistence;
 using Infrastructure.Configurations;
 using Infrastructure.EntityFramework.Context;
+using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,34 +11,50 @@ namespace Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    extension(IServiceCollection services)
     {
-        var efConfiguration = configuration.GetRequiredSection(nameof(EfCoreConfiguration)).Get<EfCoreConfiguration>()!;
-        var environment = configuration.GetRequiredSection(nameof(EnvironmentConfiguration)).Get<EnvironmentConfiguration>()!;
-
-        services.AddDbContext<IUnitOfWork, ReadFlowDbContext>(options =>
+        public void AddInfrastructureConfigurations(IConfiguration configuration)
         {
-            options.UseNpgsql(
-                configuration.GetConnectionString("Postgres"),
-                npgsql =>
-                {
-                    npgsql.MigrationsAssembly(typeof(ReadFlowDbContext).Assembly.FullName);
-                });
+            services.AddDbContextConfigurations(configuration);
+            services.AddRepositories();
+        }
+
+        public void AddRepositories()
+        {
+            services.AddScoped<IUserRepository, UserRepository>();
+        }
+
+        private IServiceCollection AddDbContextConfigurations(IConfiguration configuration)
+        {
+            var efConfiguration = configuration.GetRequiredSection(nameof(EfCoreConfiguration)).Get<EfCoreConfiguration>()!;
+            var environment = configuration.GetRequiredSection(nameof(EnvironmentConfiguration)).Get<EnvironmentConfiguration>()!;
+        
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            services.AddDbContext<IUnitOfWork, ReadFlowDbContext>(options =>
+            {
+                options.UseNpgsql(
+                    configuration.GetConnectionString("Postgres"),
+                    npgsql =>
+                    {
+                        npgsql.MigrationsAssembly(typeof(ReadFlowDbContext).Assembly.FullName);
+                    });
             
-            if (efConfiguration.EnableLog)
-            {
-                options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole(x =>
+                if (efConfiguration.EnableLog)
                 {
-                    x.FormatterName = environment.FormatterName;
-                })));
-            }
+                    options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole(x =>
+                    {
+                        x.FormatterName = environment.FormatterName;
+                    })));
+                }
 
-            if (efConfiguration.EnableSensitiveDataLogging)
-            {
-                options.EnableSensitiveDataLogging();
-            }
-        });
+                if (efConfiguration.EnableSensitiveDataLogging)
+                {
+                    options.EnableSensitiveDataLogging();
+                }
+            });
 
-        return services;
+            return services;
+        }
     }
 }
