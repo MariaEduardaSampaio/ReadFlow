@@ -1,3 +1,5 @@
+using Application.Abstractions.TransferObjects;
+
 namespace Application.UseCases.Users.Queries.GetUserById;
 
-public sealed record GetUserByIdResponse(Guid Id, string Name, string Email, string Role);
+public sealed record GetUserByIdResponse(UserDto User);

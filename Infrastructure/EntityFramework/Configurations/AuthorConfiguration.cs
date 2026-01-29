@@ -41,6 +41,5 @@ public class AuthorConfiguration: IEntityTypeConfiguration<Author>
                     j.ToTable("book_authors");
                     j.HasKey("book_id", "author_id");
                 });
-
     }
 }

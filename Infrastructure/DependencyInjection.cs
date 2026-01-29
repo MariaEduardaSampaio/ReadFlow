@@ -13,15 +13,16 @@ public static class DependencyInjection
 {
     extension(IServiceCollection services)
     {
-        public void AddInfrastructureConfigurations(IConfiguration configuration)
+        public void RegisterInfrastructureConfigurations(IConfiguration configuration)
         {
             services.AddDbContextConfigurations(configuration);
             services.AddRepositories();
         }
 
-        public void AddRepositories()
+        private void AddRepositories()
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IReadingItemRepository, ReadingItemRepository>();
         }
 
         private IServiceCollection AddDbContextConfigurations(IConfiguration configuration)

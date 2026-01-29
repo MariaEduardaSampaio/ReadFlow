@@ -1,32 +1,37 @@
-using System.Text.Json;
+using WebApi.Common.ErrorHandling.Interfaces;
 
 namespace WebApi.Common.ErrorHandling;
 
-public sealed class ExceptionHandlingMiddleware(
-    RequestDelegate next,
-    ILogger<ExceptionHandlingMiddleware> logger,
+public sealed class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger, 
     IExceptionToProblemDetailsMapper mapper)
 {
-    private readonly RequestDelegate _next = next;
-    private readonly ILogger<ExceptionHandlingMiddleware> _logger = logger;
-    private readonly IExceptionToProblemDetailsMapper _mapper = mapper;
-
     public async Task Invoke(HttpContext context)
     {
         try
         {
-            await _next(context);
+            await next(context);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unhandled exception");
+            var problem = mapper.Map(ex, context);
 
-            var problem = _mapper.Map(ex, context);
+            problem.Instance ??= context.Request.Path;
+            problem.Extensions["traceId"] = context.TraceIdentifier;
 
-            context.Response.StatusCode = problem.Status ?? StatusCodes.Status500InternalServerError;
+            var status = problem.Status ?? StatusCodes.Status500InternalServerError;
+            context.Response.StatusCode = status;
             context.Response.ContentType = "application/problem+json";
 
-            await context.Response.WriteAsync(JsonSerializer.Serialize(problem));
+            if (status >= 500)
+            {
+                logger.LogError(ex, "Unhandled exception");
+            }
+            else
+            {
+                logger.LogWarning(ex, "Request failed with status {Status}", status);
+            }
+
+            await context.Response.WriteAsJsonAsync(problem);
         }
     }
 }

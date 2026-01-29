@@ -1,3 +1,4 @@
+using Application.Abstractions.Mappers;
 using Application.Abstractions.Persistence;
 using Domain.Entities;
 using Domain.Exceptions;
@@ -13,6 +14,6 @@ public sealed class GetUserByIdHandler(IUserRepository repository): IRequestHand
 
         return user == null 
             ? throw new NotFoundException(nameof(User), query.Id) 
-            : new GetUserByIdResponse(user.Id, user.Name.Text, user.Email.Address, user.Role.ToString());
+            : new GetUserByIdResponse(user.MapToDto());
     }
 }

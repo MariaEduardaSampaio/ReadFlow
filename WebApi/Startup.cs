@@ -3,6 +3,7 @@ using Infrastructure;
 using Infrastructure.EntityFramework.Context;
 using Infrastructure.EntityFramework.Seeds;
 using WebApi.Common.ErrorHandling;
+using WebApi.Common.ErrorHandling.Interfaces;
 
 namespace WebApi;
 
@@ -15,9 +16,8 @@ public sealed class Startup(IConfiguration configuration)
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
         
-        services.AddSingleton<IExceptionToProblemDetailsMapper, ExceptionToProblemDetailsMapper>();
-
-        services.AddInfrastructureConfigurations(configuration);
+        services.RegisterErrorHandlingServices();
+        services.RegisterInfrastructureConfigurations(configuration);
         services.RegisterApplicationUseCases();
     }
 

@@ -43,7 +43,7 @@ public class ReadingItem
     {
         if (currentPage.GetValueOrDefault() < default(int))
         {
-            throw new RuleViolationDomainException($"Current page cannot be less than 0.");
+            throw new RuleViolationDomainException("Current page cannot be less than 0.");
         }
         
         if (readingStartedAt.HasValue && readingFinishedAt.HasValue
