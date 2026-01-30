@@ -12,7 +12,7 @@ public static class SeedData
             new(Guid.CreateVersion7(), "Martin Fowler", "Refactoring author"),
             new(Guid.CreateVersion7(), "Eric Evans", "DDD author"),
             new(Guid.CreateVersion7(), "Andrew Hunt", "Pragmatic Programmer author"),
-            new(Guid.CreateVersion7(), "David Thomas", "Pragmatic Programmer author"),
+            new(Guid.CreateVersion7(), "David Thomas", "Pragmatic Programmer author")
         };
 
         var categories = new List<Category>
@@ -29,7 +29,7 @@ public static class SeedData
             new(Guid.NewGuid(), "Thriller"),
             new(Guid.NewGuid(), "Science Fiction"),
             new(Guid.NewGuid(), "Mystery"),
-            new(Guid.NewGuid(), "Adventure"),
+            new(Guid.NewGuid(), "Adventure")
         };
         
         var books = new List<Book>
@@ -37,7 +37,7 @@ public static class SeedData
             new(Guid.CreateVersion7(), "Clean Code", "A handbook of agile software craftsmanship.", "9780132350884", 464, "Prentice Hall", new DateTime(2008, 8, 1)),
             new(Guid.CreateVersion7(), "Refactoring", "Improving the design of existing code.", "9780201485677", 448, "Addison-Wesley", new DateTime(1999, 7, 8)),
             new(Guid.CreateVersion7(), "Domain-Driven Design", "Tackling Complexity in the Heart of Software.", "9780321125217", 560, "Addison-Wesley", new DateTime(2003, 8, 30)),
-            new(Guid.CreateVersion7(), "The Pragmatic Programmer", "Your journey to mastery.", "9780201616224", 352, "Addison-Wesley", new DateTime(1999, 10, 20)),
+            new(Guid.CreateVersion7(), "The Pragmatic Programmer", "Your journey to mastery.", "9780201616224", 352, "Addison-Wesley", new DateTime(1999, 10, 20))
         };
 
         // Authors relationship

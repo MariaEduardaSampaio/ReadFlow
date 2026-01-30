@@ -3,7 +3,6 @@ using Infrastructure;
 using Infrastructure.EntityFramework.Context;
 using Infrastructure.EntityFramework.Seeds;
 using WebApi.Common.ErrorHandling;
-using WebApi.Common.ErrorHandling.Interfaces;
 
 namespace WebApi;
 

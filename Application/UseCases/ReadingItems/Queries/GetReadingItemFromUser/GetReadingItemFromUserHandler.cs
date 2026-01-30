@@ -14,7 +14,7 @@ public sealed class GetReadingItemFromUserHandler(IReadingItemRepository reposit
         var readingItem = await repository.GetByIdAsync(query.BookId, query.UserId, cancellationToken);
         
         return readingItem == null 
-            ? throw new NotFoundException(nameof(ReadingItem)) 
+            ? throw new NotFoundException(nameof(ReadingItem), "Reading item for this book and user does not exist.")
             : new GetReadingItemFromUserResponse(readingItem.MapToDto());
     }
 }

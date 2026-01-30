@@ -29,7 +29,7 @@ public static class TransferObjectsMapper
             Id =  user.Id,
             Role = user.Role.ToString(),
             Name = user.Name.Text ?? string.Empty,
-            Email = user.Email.Address,
+            Email = user.Email.Address
         };
     }
 
@@ -54,7 +54,7 @@ public static class TransferObjectsMapper
         return new AuthorDto
         {
             Id = author.Id,
-            Name = author.Description.Text ?? string.Empty,
+            Name = author.Name.Text ?? string.Empty,
             Description = author.Description.Text ?? string.Empty
         };
     }

@@ -10,6 +10,7 @@ public static class DependencyInjection
     {
         services.AddSingleton<IProblemDetailsExceptionMapper, RuleViolationDomainExceptionMapper>();
         services.AddSingleton<IProblemDetailsExceptionMapper, InvalidOperationExceptionMapper>();
+        services.AddSingleton<IProblemDetailsExceptionMapper, NotFoundExceptionMapper>();
 
         services.AddSingleton<IExceptionToProblemDetailsMapper, CompositeExceptionToProblemDetailsMapper>();
 

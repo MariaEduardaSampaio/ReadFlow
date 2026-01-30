@@ -13,6 +13,12 @@ public sealed class NotFoundException : Exception
     {
         EntityName = entityName;
     }
+    
+    public NotFoundException(string entityName, string details)
+        : base($"{entityName} was not found: {details}")
+    {
+        EntityName = entityName;
+    }
 
     public NotFoundException(string entityName, object key)
         : base($"{entityName} with identifier '{key}' was not found.")

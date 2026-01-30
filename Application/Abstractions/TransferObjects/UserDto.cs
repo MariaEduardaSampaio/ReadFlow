@@ -1,5 +1,3 @@
-using Domain.Enums;
-
 namespace Application.Abstractions.TransferObjects;
 
 public sealed record UserDto
